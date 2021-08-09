@@ -29,3 +29,9 @@ def readFile():
 
         file.close()
     return [m, n, inp]
+
+def outputFile(matrix):
+    file = open("output.txt", 'w')
+    for i in range(len(matrix)):
+        file.write(" ".join(map(str, matrix[i])) + '\n')
+    file.close()
