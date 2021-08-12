@@ -46,7 +46,7 @@ def main():
 
     for i in range(m):
         for j in range(n):
-            if model[i+j] > 0:
+            if model[i*m+j] > 0:
                 print('1', end=' ')
             else:
                 print('0', end=' ')
