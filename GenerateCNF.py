@@ -25,10 +25,8 @@ def recursive(cells, sign, clause, tmp_clause, count_pos, count_neg, k):
     return
 
 
-def generateCNF(m, n, i, j, value, clause):
+def generateCNF(m, n, i, j, value, cells, clause):
     count = 1
-
-    cells = []
     index = 0
     if (i-1) >= 0 and (j-1) >= 0:
         count += 1
@@ -54,7 +52,7 @@ def generateCNF(m, n, i, j, value, clause):
         count += 1
         index = i*n + (j+1)+1
         cells .append(index)
-    if (i+1) < m and (j-1) > 0:
+    if (i+1) < m and (j-1) >= 0:
         count += 1
         index = (i+1)*n + (j-1)+1
         cells .append(index)
@@ -69,9 +67,9 @@ def generateCNF(m, n, i, j, value, clause):
 
     count_pos = count - value + 1
     count_neg = value + 1
-    print("cells:", cells)
+    #print("cells:", cells)
 
     recursive(cells, "+", clause, [], count_pos, count_neg, 0)
     recursive(cells, "-", clause, [], count_pos, count_neg, 0)
-    print("clause:", clause)
-    return
+    #print("clause:", clause)
+    return clause
