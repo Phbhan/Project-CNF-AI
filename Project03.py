@@ -34,7 +34,8 @@ def main():
                 cells = []
                 clause = generateCNF(m, n, i, j, inp[i][j], cells, clause)
                 get_variable(vars, cells)
-    print(vars)
+    # print(vars)
+    #clause = [[1, 2], [1, -2]]
     print(clause)
     print(Astart(clause, vars))
     g = Glucose3()
@@ -46,7 +47,7 @@ def main():
 
     for i in range(m):
         for j in range(n):
-            if model[i*m+j] > 0:
+            if (i*n+j+1 > 0) and (i*n+j+1 in model):
                 print('1', end=' ')
             else:
                 print('0', end=' ')
