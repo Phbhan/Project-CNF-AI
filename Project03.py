@@ -3,6 +3,7 @@ from file import *
 from pysat.solvers import Glucose3
 import numpy as np
 from Astart import Astart
+import time
 
 
 def get_variable(vars, cells):
@@ -37,8 +38,12 @@ def main():
 
     # print(vars)
     #clause = [[1, 2], [1, -2]]
-    print(clause)
+    #print(clause)
+    start = time.time()
     print(Astart(clause, vars))
+    end = time.time()
+    print("Measure time: ", end-start)
+
     
     g = Glucose3()
     for it in clause:

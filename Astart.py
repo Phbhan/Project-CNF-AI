@@ -175,3 +175,4 @@ def Astart(clauses, vars):
                 if tmp[0] == len(clauses):
                     return new_state0
                 pq.push(new_state0)
+            break
