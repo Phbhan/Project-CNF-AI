@@ -67,7 +67,7 @@ def generateCNF(m, n, i, j, value, cells, clause):
 
     count_pos = count - value + 1
     count_neg = value + 1
-    print("cells:", cells)
+    #print("cells:", cells)
 
     recursive(cells, "+", clause, [], count_pos, count_neg, 0)
     recursive(cells, "-", clause, [], count_pos, count_neg, 0)
