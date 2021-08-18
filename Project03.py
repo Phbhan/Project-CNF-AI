@@ -34,9 +34,10 @@ def main():
                 cells = []
                 clause = generateCNF(m, n, i, j, inp[i][j], cells, clause)
                 get_variable(vars, cells)
-    print(vars)
-    print(clause)
+#    print(vars)
+#    print(clause)
     print(Astart(clause, vars))
+    
     g = Glucose3()
     for it in clause:
         g.add_clause([int(k) for k in it])
