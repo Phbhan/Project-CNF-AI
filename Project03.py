@@ -13,19 +13,13 @@ def get_variable(vars, cells):
 
 
 def main():
-    # m = 2
-    # n = 2
-    # inp = [[1, -1], [-1, 1]]
-    # m = 3
-    # n = 3
-    # inp = [[-1, -1, -1], [-1, 2, -1], [-1, -1, -1]]
 
-    tmp = []
+    data = []
     vars = []
-    tmp = readFile()
-    m = tmp[0]
-    n = tmp[1]
-    inp = tmp[2]
+    data = readFile()
+    m = data[0]
+    n = data[1]
+    inp = data[2]
     print("Input infor:", m, n, inp)
 
     clause = []
@@ -36,16 +30,13 @@ def main():
                 clause = generateCNF(m, n, i, j, inp[i][j], cells, clause)
                 get_variable(vars, cells)
 
-    #print(clause)
-    # print(vars)
-    #clause = [[1, 2], [1, -2]]
-    
+
+
     start = time.time()
     print(Astart(clause, vars))
     end = time.time()
     print("Measure time: ", end-start)
     
-
     g = Glucose3()
     for it in clause:
         g.add_clause([int(k) for k in it])
