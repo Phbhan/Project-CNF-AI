@@ -1,46 +1,65 @@
-import tkinter as tk
+from tkinter import * 
 import time
 from random import shuffle
 
-def createPuzzle(m, n):
-    puzzle = [i for i in range(1, m*n+1)]
-    return puzzle
+def coloringPuzzle(list_label, green_list, red_list, time_sleep):
+    for i in range(len(green_list)):
+        if(list_label[green_list[i]-1].cget("bg") == "red"):
+            list_label[green_list[i]-1].config(bg = "green")
+            list_label[green_list[i]-1].update()
+            time.sleep(time_sleep)
+    for i in range(len(red_list)):
+        if(list_label[red_list[i]-1].cget("bg") == "green"):
+            list_label[red_list[i]-1].config(bg= "red")
+            list_label[red_list[i]-1].update()
+            time.sleep(time_sleep)
 
-def coloringPuzzle(list_button, puzzle, puzzle_size):
-    for i in range(puzzle_size):
-        if(puzzle[i] > 0):
-            list_button[i].config(background = "green")
-        else:
-            list_button[i].config(background = "red")
-        list_button[i].update
 
-def setButtonPosition(m, n, root):
-    list_button = []
+
+def setLabelPosition(m, n, root):
+    list_label = []
     for i in range(m):
         for j in range(n):
-            text_button = str(i*n+j+1)
-            btn = tk.Button(root, text = text_button, width = 4, height = 3)
-            btn.place(x = j*4, y = i*3)
-            list_button.append(btn)
-    return list_button
+            text_label = str(i*n+j+1)
+            btn = Label(root, text = text_label, width = 6, height = 3, bg = "green", relief="groove", borderwidth=1)
+            btn.grid(row=i+5, column =j)
+            list_label.append(btn)
+    return list_label
 
-
+'''
 def ui(m, n):
-    root = tk.Tk()  #init window
-    root.title('A* Coloring Puzzle')
-    window_size = "" + str(n*100) + "x" + str(m*100) + "+" + "200+200"
-    root.geometry(window_size)    #size of window
-    list_button = setButtonPosition(m, n, root)
+    root = tk.Tk()
+    root.geometry("400x200+200+200")
+    btn1 = tk.label(root, text="butn_3")
+    btn1.place(relx=0.2, rely=0.5)
     root.update()
-    colors = ["red", "green"]
-
-    puzzle = createPuzzle(m, n)
-
+    colors = ["red", "orange", "yellow", "green", "blue", "purple", "black", "white", "cyan"]
     while True:
+        shuffle(colors)
         for i in range(0,len(colors)):
             btn1.config(background=colors[i])
             btn1.update()
             time.sleep(1)
-        root.mainloop()
+    root.mainloop()
+'''
 
-ui(3, 4)
+def createUI(m, n):
+    window = Tk()
+    window_size = "" + str(m*60) + "x" + str(n*60+50) + "+" + "200+200"
+    window.geometry(window_size)
+    window.title("A* GUI")
+    
+    list_label = setLabelPosition(m, n, window)
+    return window, list_label
+
+def updateUI(m, n, window, list_label, red_list, green_list, time_sleep):
+    lis_label = coloringPuzzle(list_label, green_list, red_list, time_sleep)
+    window.update()
+
+m = 5
+n = 5
+red_list = [1, 2, 3, 6, 7, 9]
+green_list = [4, 5, 8, 9]
+window, list_label = createUI(m, n)
+updateUI(m, n, window, list_label, red_list, green_list, 0.5)
+window.mainloop()
