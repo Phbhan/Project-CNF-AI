@@ -2,6 +2,7 @@ from copy import deepcopy
 
 MIN = -1000000
 
+
 class priorQueue_State:
     def __init__(self):
         self.list = []
@@ -119,12 +120,14 @@ def Astart(clauses, vars):
     state["index"] = 0
     state["0"] = []
     state["1"] = []
-    state["fx"] = 0
+    state["fx"] = len(clauses)
     state["gx"] = 0
     pq.push(state)
 
     while(pq.get_len() > 0):
         state = pq.pop()
+        if state["fx"] < len(clauses):
+            break
         # print(state)
         var = unassigned_vars[state["index"]]
 
