@@ -30,11 +30,13 @@ def main():
                 clause = generateCNF(m, n, i, j, inp[i][j], cells, clause)
                 get_variable(vars, cells)
 
+
+
     start = time.time()
     print(Astart(clause, vars))
     end = time.time()
     print("Measure time: ", end-start)
-
+    
     g = Glucose3()
     for it in clause:
         g.add_clause([int(k) for k in it])
