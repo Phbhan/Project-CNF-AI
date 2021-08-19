@@ -20,7 +20,7 @@ def generateInputMatrix(output_matrix):
                 if isValid(m, n, (next_x, next_y)):
                     if output_matrix[next_x][next_y] == 1:
                         count += 1
-            if count == '0':
+            if count == 0:
                 count = '.'
             input_matrix[i][j] = count
     return input_matrix
@@ -39,24 +39,21 @@ def writeOuput(file_name, matrix):
         f.write(" ".join(map(str, matrix[i])) + '\n')
     f.close()
 
+def generateATest(m = 10, n = 10):
+    output_matrix = generateOutputMatrix(m, n)
+    input_matrix = generateInputMatrix(output_matrix)
+    return input_matrix, output_matrix
+
 if __name__ == "__main__":
-    print("How many test you want?", end = " ")
-    n_test = int(input())
+    print("What value of m n you want?", end = " ")
+    m, n = map(int, input().split())
 
-    print("What maximum of m n you want?", end = " ")
-    max_m, max_n = map(int, input().split())
+    input, output = generateATest(m, n)
 
-    for t in range(n_test):
-        m = random.randint(1, max_m)
-        n = random.randint(1, max_n)
-        
-        output_matrix = generateOutputMatrix(m, n)
-        input_matrix = generateInputMatrix(output_matrix)
-
-        input_file_name = f'input{t}.txt'
-        writeInput(input_file_name, input_matrix)
-        output_file_name = f'output{t}.txt'
-        writeOuput(output_file_name, output_matrix)
+    input_file_name = f'input1.txt'
+    writeInput(input_file_name, input)
+    output_file_name = f'output1.txt'
+    writeOuput(output_file_name, output)
         
 
         
