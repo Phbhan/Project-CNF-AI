@@ -111,7 +111,7 @@ def get_var(clauses, vars):
     return var
 
 
-def Astart(clauses, vars):
+def Astart(clauses, vars, window, list_label):
     pq = priorQueue_State()
     return_state = False
     unassigned_vars = get_var(clauses, vars)
@@ -155,4 +155,7 @@ def Astart(clauses, vars):
                 return_state = new_state1
                 break
             pq.push(new_state1)
+        print('1: ', new_state1["1"])
+        print('0: ', new_state0["0"])
     return return_state
+

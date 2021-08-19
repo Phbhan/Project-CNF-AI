@@ -4,6 +4,7 @@ from pysat.solvers import Glucose3
 import numpy as np
 from Astart import Astart
 import time
+from ui import *
 
 
 def get_variable(vars, cells):
@@ -11,6 +12,15 @@ def get_variable(vars, cells):
         if i not in vars:
             vars.append(i)
 
+def runAStar():
+    data = readFile()
+    m = data[0]
+    n = data[1]
+    matrix_inp = data[2]
+
+    window, list_label = createUI(m, n)
+    #Run A* with 
+    window.mainloop()
 
 def main():
 
