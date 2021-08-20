@@ -9,7 +9,6 @@ def coloringPuzzle(list_label, green_list, red_list, time_sleep):
         if(list_label[green_list[i]-1].cget("bg") == "red"):
             list_label[green_list[i]-1].config(bg = "green")
             list_label[green_list[i]-1].update()
-            time.sleep(time_sleep)
     for i in range(len(red_list)):
         if(list_label[red_list[i]-1].cget("bg") == "green"):
             list_label[red_list[i]-1].config(bg= "red")
@@ -54,7 +53,14 @@ def browseFiles():
 
 def createUI(m, n, matrix_inp):
     window = Tk()
-    window_size = "" + str(n*60+210) + "x" + str(m*60-20) + "+" + "200+200"
+    if(n < 5):
+        window_width = 5*60+210
+    else: window_width = n*60+210
+    if(m < 5):
+        window_height = 5*60-20
+    else: window_height = m*60-20
+    
+    window_size = "" + str(window_width) + "x" + str(window_height) + "+" + "200+200"
     window.geometry(window_size)
     window.title("A* GUI")
 

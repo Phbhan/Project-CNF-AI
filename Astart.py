@@ -112,7 +112,7 @@ def get_var(clauses, vars):
     return var
 
 
-def Astart(clauses, vars, window, list_label, label_heuristic_value, time_sleep):
+def Astart(clauses, vars, window, list_label, label_heuristic_value, time_sleep, label_step_value):
 
     pq = priorQueue_State()
     return_state = False
@@ -131,6 +131,9 @@ def Astart(clauses, vars, window, list_label, label_heuristic_value, time_sleep)
         if state["fx"] < len(clauses):
             break
         print(state)
+        label_heuristic_value.config(text = str(state["fx"]-state["gx"]))
+        label_heuristic_value.update()
+        label_step_value.config(text = str(state["index"]))
         updateUI(window, list_label, state["0"], state["1"], time_sleep)
         var = unassigned_vars[state["index"]]
 
@@ -138,8 +141,6 @@ def Astart(clauses, vars, window, list_label, label_heuristic_value, time_sleep)
         new_state0["0"].append(var)
         gxhx = countClauseAfterAssigned(clauses, vars, new_state0)
         '''
-        label_heuristic_value.config(text = str(gxhx[1]))
-        label_heuristic_value.update()
         '''
         if not (gxhx == False):
             new_state0["fx"] = gxhx[0]+gxhx[1]

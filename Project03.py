@@ -14,7 +14,7 @@ def get_variable(vars, cells):
             vars.append(i)
 
 def showMessageBox():
-    messagebox.showwarning("warning","Warning")  
+    messagebox.showwarning("Error","No Solution")  
 
 def runAStar(vars, clauses, isSolvable):
     data = readFile()
@@ -29,7 +29,13 @@ def runAStar(vars, clauses, isSolvable):
                     text = "",
                     width = 10, height = 1,
                     fg = "red", anchor="sw")
-    label_heuristic_value.place(x=75, y = 110) 
+    label_heuristic_value.place(x=75, y = 110)
+
+    label_step_value = Label(window,
+                    text = "0",
+                    width = 10, height = 1,
+                    fg = "red", anchor="sw")
+    label_step_value.place(x=75, y = 155)  
 
     entry = Entry(window, width = 15) 
     entry.place(x=60, y=200)
@@ -37,7 +43,7 @@ def runAStar(vars, clauses, isSolvable):
     update_button = Button(window, text = "Update")
     update_button.place(x=5, y = 230)
     if(isSolvable == True):
-        start_button = Button(window, text = "Start", command = lambda:Astart(clauses, vars, window, list_label, label_heuristic_value, 0.5))
+        start_button = Button(window, text = "Start", command = lambda:Astart(clauses, vars, window, list_label, label_heuristic_value, 0.5, label_step_value))
         start_button.place(x=100, y =  230)
     else:
         start_button = Button(window, text = "Start", command = showMessageBox)
@@ -74,17 +80,17 @@ def main():
     g = Glucose3()
     for it in clause:
         g.add_clause([int(k) for k in it])
-    print(g.solve())
-    model = g.get_model()
-    print(model)
+    if(g.solve()):
+        model = g.get_model()
+        print(model)
 
-    for i in range(m):
-        for j in range(n):
-            if (i*n+j+1 > 0) and (i*n+j+1 in model):
-                print('1', end=' ')
-            else:
-                print('0', end=' ')
-        print('')
+        for i in range(m):
+            for j in range(n):
+                if (i*n+j+1 > 0) and (i*n+j+1 in model):
+                    print('1', end=' ')
+                else:
+                    print('0', end=' ')
+            print('')
 
     runAStar(vars, clause, g.solve())
 
