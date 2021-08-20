@@ -1,6 +1,5 @@
 from copy import deepcopy
 from ui import *
-import time
 
 MIN = -1000000
 
@@ -96,28 +95,7 @@ def countClauseAfterAssigned(clauses, vars, state):
     return [count_satisfiedClause, count_not_conflictClause]
 
 
-
-def get_var(clauses, vars):
-    count_var = {}
-    for var in vars:
-        count_var[var] = 0
-    for clause in clauses:
-        for var in clause:
-            if (var > 0):
-                count_var[var] += 1
-            else:
-                count_var[-var] += 1
-    count_var = sorted(count_var.items(), key=lambda x: x[1], reverse=True)
-    var = []
-    for cv in count_var:
-        var.append(cv[0])
-    return var
-
-
 def Astart(clauses, vars, window, list_label, label_heuristic_value, time_sleep, label_step_value):
-    resetColor(list_label)
-    
-    start = time.time()
 
     pq = priorQueue_State()
     return_state = False
@@ -130,16 +108,15 @@ def Astart(clauses, vars, window, list_label, label_heuristic_value, time_sleep,
     state["fx"] = len(clauses)
     state["gx"] = 0
     pq.push(state)
-    count = 0
+
     while(pq.get_len() > 0):
         state = pq.pop()
         if state["fx"] < len(clauses):
             break
-
-        #print(state)
-        label_heuristic_value.config(text = str(state["fx"]-state["gx"]))
+        print(state)
+        label_heuristic_value.config(text=str(state["fx"]-state["gx"]))
         label_heuristic_value.update()
-        label_step_value.config(text = str(count))
+        label_step_value.config(text=str(state["index"]))
         updateUI(window, list_label, state["0"], state["1"], time_sleep)
 
         var = unassigned_vars[state["index"]]
@@ -167,18 +144,7 @@ def Astart(clauses, vars, window, list_label, label_heuristic_value, time_sleep,
             if gxhx[0] == len(clauses):
                 return_state = new_state1
                 break
-
             if(new_state1["fx"] == len(clauses)):
                 pq.push(new_state1)
-        '''
-        print('1: ', new_state1["1"])
-        print('0: ', new_state0["0"])
-        count+=1
-        time.sleep(time_sleep)
-        '''
 
-
-
-    end = time.time()
-    print("A* running time: ", end-start)
     return return_state
