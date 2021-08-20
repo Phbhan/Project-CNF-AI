@@ -16,6 +16,8 @@ def get_variable(vars, cells):
 def showMessageBox():
     messagebox.showwarning("Error","No Solution")  
 
+
+
 def runAStar(vars, clauses, isSolvable):
     data = readFile()
     m = data[0]
@@ -42,12 +44,15 @@ def runAStar(vars, clauses, isSolvable):
     entry = Entry(window, width=15)
     entry.place(x=60, y=200)
 
-    update_button = Button(window, text="Update")
+    speed_value = 0.5
+
+    update_button = Button(window, text="Update", command = lambda:getSpeed_value(entry, speed_value))
+    print(speed_value)
     update_button.place(x=5, y=230)
     if(isSolvable == True):
-        start_button = Button(window, text = "Start", command = lambda:Astart(clauses, vars, window, list_label, label_heuristic_value, 0.5, label_step_value))
+        
+        start_button = Button(window, text = "Start", command = lambda:Astart(clauses, vars, window, list_label, label_heuristic_value, speed_value, label_step_value))
         start_button.place(x=100, y =  230)
-
     else:
         start_button = Button(window, text="Start", command=showMessageBox)
         start_button.place(x=100, y=230)

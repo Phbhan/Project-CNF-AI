@@ -1,5 +1,6 @@
 from copy import deepcopy
 from ui import *
+import time
 
 MIN = -1000000
 
@@ -113,7 +114,9 @@ def get_var(clauses, vars):
 
 
 def Astart(clauses, vars, window, list_label, label_heuristic_value, time_sleep, label_step_value):
-
+    resetColor(list_label)
+    
+    start = time.time()
     pq = priorQueue_State()
     return_state = False
     unassigned_vars = get_var(clauses, vars)
@@ -125,15 +128,15 @@ def Astart(clauses, vars, window, list_label, label_heuristic_value, time_sleep,
     state["fx"] = len(clauses)
     state["gx"] = 0
     pq.push(state)
-
+    count = 0
     while(pq.get_len() > 0):
         state = pq.pop()
         if state["fx"] < len(clauses):
             break
-        print(state)
+        #print(state)
         label_heuristic_value.config(text = str(state["fx"]-state["gx"]))
         label_heuristic_value.update()
-        label_step_value.config(text = str(state["index"]))
+        label_step_value.config(text = str(count))
         updateUI(window, list_label, state["0"], state["1"], time_sleep)
         var = unassigned_vars[state["index"]]
 
@@ -167,6 +170,10 @@ def Astart(clauses, vars, window, list_label, label_heuristic_value, time_sleep,
         print('1: ', new_state1["1"])
         print('0: ', new_state0["0"])
         '''
+        count+=1
+        time.sleep(time_sleep)
 
+    end = time.time()
+    print("A* running time: ", end-start)
     return return_state
 

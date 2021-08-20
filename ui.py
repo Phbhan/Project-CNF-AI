@@ -6,14 +6,15 @@ from tkinter import messagebox
 
 def coloringPuzzle(list_label, green_list, red_list, time_sleep):
     for i in range(len(green_list)):
-        if(list_label[green_list[i]-1].cget("bg") == "red"):
+        if(list_label[green_list[i]-1].cget("bg") != "green"):
             list_label[green_list[i]-1].config(bg = "green")
             list_label[green_list[i]-1].update()
+
     for i in range(len(red_list)):
-        if(list_label[red_list[i]-1].cget("bg") == "green"):
+        if(list_label[red_list[i]-1].cget("bg") != "red"):
             list_label[red_list[i]-1].config(bg= "red")
             list_label[red_list[i]-1].update()
-            time.sleep(time_sleep)
+
 '''
 def coloringPuzzle(list_label, green_lable, red_lable, time_sleep):
     if(list_label[green_lable-1].cget("bg") == "red"):
@@ -33,11 +34,24 @@ def setLabelPosition(m, n, window, matrix_inp):
             text_label = ""
             if(matrix_inp[i][j]>=0):
                 text_label = str(matrix_inp[i][j])
-            lb = Label(window, text = text_label, width = 6, height = 3, bg = "green", relief="groove", borderwidth=1)
+            lb = Label(window, text = text_label, width = 6, height = 3, bg = "gray", relief="groove", borderwidth=1)
             lb.grid(row=i, column =j+6)
 
             list_label.append(lb)
     return list_label
+
+def check_float(potential_float):
+    try:
+        float(potential_float)
+        return True
+    except ValueError:
+        return False
+
+def getSpeed_value(entry, speed_value):
+    speed_str = entry.get()
+    if(check_float(speed_str)):
+        speed_value += float(speed_str)
+    else: speed_value = 0
 
 def browseFiles():
     filename = filedialog.askopenfilename(initialdir = "/",
@@ -50,6 +64,10 @@ def browseFiles():
     return filename
     # Change label contents
 
+def resetColor(list_label):
+    for i in range(len(list_label)):
+            list_label[i].config(bg = "gray")
+            list_label[i].update()
 
 def createUI(m, n, matrix_inp):
     window = Tk()

@@ -1,5 +1,6 @@
 from file import *
 from copy import deepcopy
+import time
 
 delta = [ (0, 0), (-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1) ]
 
@@ -108,7 +109,10 @@ if __name__ == "__main__":
     # print("Brute force solution: ", solution)
 
     solution = [[-1] * n for i in range(m)]
+    start = time.time()
     found, solution = backtrack(m, n, matrix, solution, 0)
+    end = time.time()
+    print("Running time: ", end-start)
     print("Backtrack solution: ", solution)
     # outputFile(solution)
 
