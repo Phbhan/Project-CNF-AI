@@ -7,14 +7,15 @@ from ui import *
 import time
 
 
-
 def get_variable(vars, cells):
     for i in cells:
         if i not in vars:
             vars.append(i)
 
+
 def showMessageBox():
-    messagebox.showwarning("warning","Warning")  
+    messagebox.showwarning("warning", "Warning")
+
 
 def runAStar(vars, clauses, isSolvable):
     data = readFile()
@@ -26,25 +27,27 @@ def runAStar(vars, clauses, isSolvable):
     window, list_label = createUI(m, n, matrix_inp)
 
     label_heuristic_value = Label(window,
-                    text = "",
-                    width = 10, height = 1,
-                    fg = "red", anchor="sw")
-    label_heuristic_value.place(x=75, y = 110) 
+                                  text="",
+                                  width=10, height=1,
+                                  fg="red", anchor="sw")
+    label_heuristic_value.place(x=75, y=110)
 
-    entry = Entry(window, width = 15) 
+    entry = Entry(window, width=15)
     entry.place(x=60, y=200)
-    
-    update_button = Button(window, text = "Update")
-    update_button.place(x=5, y = 230)
-    if(isSolvable == True):
-        start_button = Button(window, text = "Start", command = lambda:Astart(clauses, vars, window, list_label, label_heuristic_value, 0.5))
-        start_button.place(x=100, y =  230)
-    else:
-        start_button = Button(window, text = "Start", command = showMessageBox)
-        start_button.place(x=100, y =  230)        
 
-    #Run A*
+    update_button = Button(window, text="Update")
+    update_button.place(x=5, y=230)
+    if(isSolvable == True):
+        start_button = Button(window, text="Start", command=lambda: Astart(
+            clauses, vars, window, list_label, label_heuristic_value, 0.5))
+        start_button.place(x=100, y=230)
+    else:
+        start_button = Button(window, text="Start", command=showMessageBox)
+        start_button.place(x=100, y=230)
+
+    # Run A*
     window.mainloop()
+
 
 def main():
 
@@ -62,31 +65,36 @@ def main():
             if(inp[i][j] != -1):
                 cells = []
                 clause = generateCNF(m, n, i, j, inp[i][j], cells, clause)
+                if (clause == False):
+                    break
                 get_variable(vars, cells)
+        if clause == False:
+            break
 
+    if not(clause == False):
+        # start = time.time()
+        # print(Astart(clause, vars))
+        # end = time.time()
+        # print("Measure time: ", end-start)
 
-    '''
-    start = time.time()
-    print(Astart(clause, vars))
-    end = time.time()
-    print("Measure time: ", end-start)
-    '''
-    g = Glucose3()
-    for it in clause:
-        g.add_clause([int(k) for k in it])
-    print(g.solve())
-    model = g.get_model()
-    print(model)
+        g = Glucose3()
+        for it in clause:
+            g.add_clause([int(k) for k in it])
+        can_solve = g.solve()
+        print(can_solve)
+        if (can_solve == True):
+            model = g.get_model()
+            print(model)
 
-    for i in range(m):
-        for j in range(n):
-            if (i*n+j+1 > 0) and (i*n+j+1 in model):
-                print('1', end=' ')
-            else:
-                print('0', end=' ')
-        print('')
+            for i in range(m):
+                for j in range(n):
+                    if (i*n+j+1 > 0) and (i*n+j+1 in model):
+                        print('1', end=' ')
+                    else:
+                        print('0', end=' ')
+                print('')
 
-    runAStar(vars, clause, g.solve())
+        runAStar(vars, clause, g.solve())
 
 
 main()
