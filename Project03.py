@@ -7,11 +7,11 @@ from ui import *
 import time
 
 
-
 def get_variable(vars, cells):
     for i in cells:
         if i not in vars:
             vars.append(i)
+
 
 def showMessageBox():
     messagebox.showwarning("Error","No Solution")  
@@ -26,6 +26,7 @@ def runAStar(vars, clauses, isSolvable):
     window, list_label = createUI(m, n, matrix_inp)
 
     label_heuristic_value = Label(window,
+
                     text = "",
                     width = 10, height = 1,
                     fg = "red", anchor="sw")
@@ -37,20 +38,23 @@ def runAStar(vars, clauses, isSolvable):
                     fg = "red", anchor="sw")
     label_step_value.place(x=75, y = 155)  
 
-    entry = Entry(window, width = 15) 
+
+    entry = Entry(window, width=15)
     entry.place(x=60, y=200)
-    
-    update_button = Button(window, text = "Update")
-    update_button.place(x=5, y = 230)
+
+    update_button = Button(window, text="Update")
+    update_button.place(x=5, y=230)
     if(isSolvable == True):
         start_button = Button(window, text = "Start", command = lambda:Astart(clauses, vars, window, list_label, label_heuristic_value, 0.5, label_step_value))
         start_button.place(x=100, y =  230)
-    else:
-        start_button = Button(window, text = "Start", command = showMessageBox)
-        start_button.place(x=100, y =  230)        
 
-    #Run A*
+    else:
+        start_button = Button(window, text="Start", command=showMessageBox)
+        start_button.place(x=100, y=230)
+
+    # Run A*
     window.mainloop()
+
 
 def main():
 
@@ -68,7 +72,10 @@ def main():
             if(inp[i][j] != -1):
                 cells = []
                 clause = generateCNF(m, n, i, j, inp[i][j], cells, clause)
+                if (clause == False):
+                    break
                 get_variable(vars, cells)
+
 
 
     '''
@@ -93,6 +100,7 @@ def main():
             print('')
 
     runAStar(vars, clause, g.solve())
+
 
 
 main()
