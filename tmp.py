@@ -95,7 +95,8 @@ def countClauseAfterAssigned(clauses, vars, state):
     return [count_satisfiedClause, count_not_conflictClause]
 
 
-def Astart(clauses, vars):
+def Astart(clauses, vars, window, list_label, label_heuristic_value, time_sleep, label_step_value):
+
     pq = priorQueue_State()
     return_state = False
     unassigned_vars = vars
@@ -113,6 +114,10 @@ def Astart(clauses, vars):
         if state["fx"] < len(clauses):
             break
         print(state)
+        label_heuristic_value.config(text=str(state["fx"]-state["gx"]))
+        label_heuristic_value.update()
+        label_step_value.config(text=str(state["index"]))
+        updateUI(window, list_label, state["0"], state["1"], time_sleep)
 
         var = unassigned_vars[state["index"]]
 
