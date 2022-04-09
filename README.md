@@ -35,7 +35,7 @@ the state of the current State is displayed on the form, the step order and the
 current State's heuristic value are also displayed on the form.
   * Students can use Python's tkinter library to create GUI
 
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;![Figure2](https://user-images.githubusercontent.com/62047983/162444947-04150b07-2d85-46dd-84a4-f375fc9c2580.png)
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;![Figure2](https://user-images.githubusercontent.com/62047983/162444947-04150b07-2d85-46dd-84a4-f375fc9c2580.png)
   
 ## Overall plan for approaching the problem:
 * Program brute-force and backtracking algorithm to have a deeper
@@ -48,7 +48,7 @@ generation program with pySAT.
   * Using A* to solve the CNF clause.
 * Compare using A* solving CNF clause with brute-force and backtracking algorithm.
 ## Aproach:
-### Brute-force and Backtracking Algorithm
+### Brute-force and Backtracking Algorithm: <a href="https://github.com/Phbhan/Project-CNF-AI/blob/main/bruteforce.py"><strong>bruteforce.py</strong></a>
 **Brute-force algorithm:**
 
 &emsp;Step 1: Check whether all cells are assigned, if they are and the result satisfes the problem, return True and result matrix, else return False and an empty solution.
@@ -65,7 +65,7 @@ False as no solution is found.
 whether the matrix conﬂicts with any constraints at every function
 call, if it does, return False and exit the function call.
 ### CNF with A*:
-#### Generate CNF clauses:
+#### Generate CNF clauses: <a href="https://github.com/Phbhan/Project-CNF-AI/blob/main/GenerateCNF.py"><strong>GenerateCNF.py</strong></a>
 *Simple example*
 
 Input matrix:
@@ -157,7 +157,7 @@ is all positive combinations of `(n - v + 1)` variables of n variables.
 * Constraints to make sure there are at least `(n – v)` variables are False is
 all negative combinations of `(v + 1)` variables of n variables.
 
-#### Using A* to solve CNF clauses:
+#### Using A* to solve CNF clauses: <a href="https://github.com/Phbhan/Project-CNF-AI/blob/main/Astart.py"><strong>Astart.py</strong></a>
 
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;f(x) = g(x) + h(x)
 
@@ -207,7 +207,7 @@ E.g. We have to assign 3 variables (1, 2, 3) to solve the CNF.
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;![Figure](https://user-images.githubusercontent.com/62047983/162444956-4641389d-413a-45d6-b888-5eb72c20b0be.png)
 
 In this example, 1, 2, 3 are the variables and 1, 0 are the values. At the
-frst level, we assign each variable for each value and fnd the state
+frst level, we assign each variable for each value and find the state
 having the largest f(x), we choose variable 2 with value 1. At the second
 level, we assign each unassigned variable with each value, choose the
 state have the best f(x) in priority queue is variable 1 with value 0 and
